@@ -234,7 +234,7 @@ img{
     top:-.75rem
 }
 .-top-4{
-    top:-1rem
+    top:-10rem
 }
 .bottom-0{
     bottom:0
@@ -313,6 +313,9 @@ img{
 }
 .left-full{
     left:100%
+}
+.-right-10{
+    right:-37rem
 }
 .right-0{
     right:0
