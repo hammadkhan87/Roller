@@ -1036,6 +1036,9 @@ img{
 .w-44{
     width:11rem
 }
+.w-45{
+    width:15rem
+}
 .w-5{
     width:1.25rem
 }
@@ -2677,6 +2680,9 @@ img{
 }
 .pt-10{
     padding-top:2.5rem
+}
+.pt-12{
+    padding-top:3rem
 }
 .pt-14{
     padding-top:3.5rem
@@ -5915,6 +5921,9 @@ body{
     }
     .lg\:h-20{
         height:5rem
+    }
+    .lg\:h-25{
+        height:8rem
     }
     .lg\:h-52{
         height:13rem
