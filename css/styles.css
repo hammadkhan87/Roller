@@ -2681,8 +2681,8 @@ img{
 .pt-10{
     padding-top:2.5rem
 }
-.pt-12{
-    padding-top:3rem
+.pt-11{
+    padding-top:2.7rem
 }
 .pt-14{
     padding-top:3.5rem
@@ -5923,7 +5923,7 @@ body{
         height:5rem
     }
     .lg\:h-25{
-        height:8rem
+        height:7rem
     }
     .lg\:h-52{
         height:13rem
