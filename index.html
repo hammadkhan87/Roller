@@ -634,45 +634,69 @@ Roll, win, and earn like never before!</p>
                                                         <!-- Navigation Buttons --> <div style="display: flex; justify-content: center; gap: 20px; margin-top: 30px;"> 
                                                          <button onclick="scrollPartners(-1)" style=" width: 50px; height: 50px; border: 2px solid #ffcc00; border-radius: 50%; background: transparent; color: white; font-size: 1.5rem; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 0 15px rgba(255, 59, 128, 0.5); " onmouseover="this.style.backgroundColor='#ffcc00'; this.style.color='#000000'" onmouseout="this.style.backgroundColor='transparent'; this.style.color='white'"> ← </button>
                                                           <button onclick="scrollPartners(1)" style=" width: 50px; height: 50px; border: 2px solid #ffcc00; border-radius: 50%; background: transparent; color: white; font-size: 1.5rem; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 0 15px rgba(255, 59, 128, 0.5); " onmouseover="this.style.backgroundColor='#ffcc00'; this.style.color='#000000'" onmouseout="this.style.backgroundColor='transparent'; this.style.color='white'"> → </button> </div> </section>
+
+
 <script>
 const sliderContainer = document.getElementById('partners-slider-container');
-const cardWidth = 220; // each scroll step
-let targetScroll = 0;
-let isAnimating = false;
+let scrollSpeed = 0.6; // smoothness/speed control
+let autoScrollActive = true;
 
-// This keeps running a smooth animation loop
+// --- AUTO SCROLL LOOP ---
+function autoScroll() {
+  if (autoScrollActive) {
+    sliderContainer.scrollLeft += scrollSpeed;
+
+    // when reach end → jump back smoothly
+    if (sliderContainer.scrollLeft >= sliderContainer.scrollWidth - sliderContainer.clientWidth - 1) {
+      sliderContainer.scrollLeft = 0;
+    }
+  }
+  requestAnimationFrame(autoScroll);
+}
+autoScroll();
+
+// --- BUTTON MANUAL SCROLL ---
+const cardWidth = 220;
+let isAnimating = false;
+let targetScroll = 0;
+
 function animateScroll() {
   if (!isAnimating) return;
 
   const currentScroll = sliderContainer.scrollLeft;
   const distance = targetScroll - currentScroll;
-  
-  // Stop animation when very close
-  if (Math.abs(distance) < 0.6) {
+
+  if (Math.abs(distance) < 0.5) {
     sliderContainer.scrollLeft = targetScroll;
     isAnimating = false;
     return;
   }
 
-  // Smooth easing step (smaller value = smoother)
-  sliderContainer.scrollLeft += distance * 0.09;
-
+  sliderContainer.scrollLeft += distance * 0.1;
   requestAnimationFrame(animateScroll);
 }
 
 function scrollPartners(direction) {
   const maxScroll = sliderContainer.scrollWidth - sliderContainer.clientWidth;
-  targetScroll += direction * cardWidth;
 
-  // Clamp scroll within bounds
-  targetScroll = Math.max(0, Math.min(targetScroll, maxScroll));
+  targetScroll = sliderContainer.scrollLeft + direction * cardWidth;
+  if (targetScroll < 0) targetScroll = 0;
+  if (targetScroll > maxScroll) targetScroll = 0;
 
-  if (!isAnimating) {
-    isAnimating = true;
-    animateScroll();
-  }
+  isAnimating = true;
+  animateScroll();
+
+  // temporarily pause auto scroll during manual action
+  autoScrollActive = false;
+  clearTimeout(window.resumeAutoScroll);
+  window.resumeAutoScroll = setTimeout(() => (autoScrollActive = true), 1000);
 }
+
+// --- HOVER PAUSE ---
+sliderContainer.addEventListener('mouseenter', () => (autoScrollActive = false));
+sliderContainer.addEventListener('mouseleave', () => (autoScrollActive = true));
 </script>
+
 
 
 
