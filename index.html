@@ -588,12 +588,47 @@ Roll, win, and earn like never before!</p>
                         <p class="text-lg text-[#B9C2F4] font-normal  font-primary pt-4 relative z-10 xl:px-0 px-4">Become a RollBlock VIP and get access to exclusive bonuses, special promotions, and personalized rewards. Subscribe to our newsletter to stay updated on the latest games, events, and news from the world of RollBlock. Don't miss out on the excitement – <br><br>Sign up today!</p>
                         <div class="relative  bg-transparent rounded-lg mt-12 xl:w-[80%] px-4 xl:px-0">
                            <div class="lg:max-w-6xl lg:mx-auto bg-transparent rounded-none">
-                              <form>
+                              <!-- <form>
                                  <div class="flex flex-wrap items-center justify-between border rounded-none border-dove-gray">
                                     <div class="relative flex-1 "><input class="inline-block w-full py-4 px-6 bg-steel-gray text-lg font-normal text-perano placeholder-perano border-0  focus:ring-transparent focus:outline-none rounded-md" type="email" placeholder="Your Email"></div>
                                     <button type="submit" class=" w-auto bg-supernova hover:bg-supernova text-blue-charcoal font-bold text-lg mr-1 py-3 px-4 md:px-20 rounded-none text-center">Submit</button>
                                  </div>
-                              </form>
+                              </form> -->
+     <form id="emailForm">
+  <div class="flex flex-wrap items-center justify-between border rounded-none border-dove-gray">
+    <div class="relative flex-1">
+      <input
+        id="email"
+        class="inline-block w-full py-4 px-6 bg-steel-gray text-lg font-normal text-perano placeholder-perano border-0 focus:ring-transparent focus:outline-none rounded-md"
+        type="email"
+        placeholder="Your Email"
+        required
+      />
+    </div>
+    <button
+      type="submit"
+      class="w-auto bg-supernova hover:bg-supernova text-blue-charcoal font-bold text-lg mr-1 py-3 px-4 md:px-20 rounded-none text-center"
+    >
+      Submit
+    </button>
+  </div>
+</form>
+
+<script>
+document.getElementById("emailForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const email = document.getElementById("email").value;
+  const res = await fetch("send-mail.php", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email })
+  });
+  const data = await res.json();
+  alert(data.message);
+});
+</script>
+
+
                            </div>
                         </div>
                      </div>
